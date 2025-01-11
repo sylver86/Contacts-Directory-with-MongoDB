@@ -1,0 +1,127 @@
+﻿[
+    {
+        "Nome": "Marco",
+        "Cognome": "Bianchi",
+        "Numero_di_cellulare": "348123456",
+        "Società": "WebCorp",
+        "Data_di_compleanno": "1985-03-22",
+        "Tag": ["lavoro", "tech"],
+        "Altri_contatti": {
+            "Email": ["marco.bianchi@example.com", "marco.b@webcorp.it"],
+            "Indirizzo": "Via Roma 10, Milano"
+        },
+        "Chiamate_ultimo_mese": 8,
+        "Amici_stretti": false
+    },
+    {
+        "Nome": "Laura",
+        "Cognome": "Rossi",
+        "Numero_di_cellulare": ["349765432", "333987654"],
+        "Altri_contatti": {
+            "Profilo_social": "twitter.com/laura_rossi"
+        },
+        "Chiamate_ultimo_mese": 5,
+        "Amici_stretti": false
+    },
+    {
+        "Nome": "Giulia",
+        "Cognome": "Verdi",
+        "Numero_di_cellulare": "347896123",
+        "Società": "Finanziaria Milano",
+        "Data_di_compleanno": "1990-07-15",
+        "Altri_contatti": {
+            "Indirizzo": "Via Milano 45, Roma"
+        },
+        "Chiamate_ultimo_mese": 10,
+        "Amici_stretti": true
+    },
+    {
+        "Nome": "Luca",
+        "Cognome": "Neri",
+        "Numero_di_cellulare": "346789567",
+        "Tag": ["personale", "amici"],
+        "Altri_contatti": {
+            "Email": "luca.neri@example.com"
+        },
+        "Chiamate_ultimo_mese": 15,
+        "Amici_stretti": true
+    },
+    {
+        "Nome": "Sara",
+        "Cognome": "Gialli",
+        "Numero_di_cellulare": "345123987",
+        "Società": "GraphicDesign srl",
+        "Altri_contatti": {
+            "Profilo_social": "linkedin.com/in/sara-gialli"
+        },
+        "Chiamate_ultimo_mese": 3,
+        "Amici_stretti": false
+    },
+    {
+        "Nome": "Antonio",
+        "Cognome": "Grigi",
+        "Numero_di_cellulare": "348456789",
+        "Data_di_compleanno": "1982-12-11",
+        "Chiamate_ultimo_mese": 1,
+        "Amici_stretti": false
+    },
+    {
+        "Nome": "Chiara",
+        "Cognome": "Marroni",
+        "Numero_di_cellulare": ["347123456", "320987654"],
+        "Società": "ArchiStudio",
+        "Altri_contatti": {
+            "Email": ["chiara.marroni@archistudio.it", "info@archistudio.it"],
+            "Indirizzo": "Via delle Acacie 33, Napoli"
+        },
+        "Chiamate_ultimo_mese": 7,
+        "Amici_stretti": false
+    },
+    {
+        "Nome": "Federico",
+        "Cognome": "Blu",
+        "Numero_di_cellulare": "349654321",
+        "Tag": ["lavoro", "fitness"],
+        "Altri_contatti": {
+            "Email": ["federico.blu@example.com", "fb@workout.com"]
+        },
+        "Chiamate_ultimo_mese": 12,
+        "Amici_stretti": true
+    },
+    {
+        "Nome": "Elena",
+        "Cognome": "Viola",
+        "Numero_di_cellulare": "346891234",
+        "Società": "Eventi&Co",
+        "Altri_contatti": {
+            "Profilo_social": "facebook.com/elena.viola"
+        },
+        "Chiamate_ultimo_mese": 0,
+        "Amici_stretti": false
+    },
+    {
+        "Nome": "Simone",
+        "Cognome": "Azzurri",
+        "Numero_di_cellulare": "345678901",
+        "Data_di_compleanno": "1979-05-30",
+        "Tag": ["famiglia", "viaggi"],
+        "Altri_contatti": {
+            "Email": "simone.azzurri@example.net"
+        },
+        "Chiamate_ultimo_mese": 20,
+        "Amici_stretti": true
+    },
+    {
+        "Nome": "Alessia",
+        "Cognome": "Moretti",
+        "Numero_di_cellulare": ["347098765", "321654987"],
+        "Società": "WebCorp",
+        "Tag": ["lavoro", "viaggi"],
+        "Altri_contatti": {
+            "Email": ["alessia.moretti@example.com", "sales@moretti.com"]
+        },
+        "Chiamate_ultimo_mese": 25,
+        "Amici_stretti": true
+    }
+]
+
