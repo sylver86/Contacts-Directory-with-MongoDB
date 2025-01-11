@@ -1,0 +1,137 @@
+﻿
+1) Trovare tutti i contatti associati alla società WebCorp.
+	use Rubrica_Utenti
+	db.Rubrica.find({Società:'WebCorp'})
+
+Cosa fa questa query:
+    • use Rubrica_Utenti: Seleziona il database Rubrica_Utenti come attivo.
+    • db.Rubrica.find({ Società: 'WebCorp' }): Cerca in tutte le collezioni Rubrica i documenti in cui il campo "Società" ha valore "WebCorp".
+Motivazione: La clausola find() viene usata per eseguire una ricerca basata su una condizione specifica.  
+
+-----------------------------------
+
+2) Identificare i contatti con più di un numero di telefono.
+
+	db.Rubrica.find({ "Numero_di_cellulare.1": { $exists: true } })
+
+
+Cosa fa questa query:
+    • "Numero_di_cellulare.1": Si riferisce al secondo elemento dell'array (gli array in MongoDB sono indicizzati a partire da 0).
+    • "$exists: true": Controlla se il secondo elemento nell'array Numero_di_cellulare esiste.
+Motivazione: Questa query identifica tutti i documenti in cui Numero_di_cellulare è un array con almeno due numeri di telefono. Se l'indice 1 esiste, vuol dire che ci sono almeno due numeri.
+
+-----------------------------------
+
+
+
+
+
+
+
+
+
+3) Estrarre solo i numeri di telefono dei contatti con tag "lavoro".
+
+ 	db.Rubrica.find({ Tag: "lavoro" }, { Numero_di_cellulare: 1, _id: 0 })
+
+
+Cosa fa questa query:
+    • { Tag: "lavoro" }: Filtra i documenti che hanno Tag con valore "lavoro".
+    • { Numero_di_cellulare: 1, _id: 0 }: Proietta solo il campo Numero_di_cellulare, escludendo il campo _id.
+Motivazione: MongoDB permette di proiettare solo i campi di interesse. La proiezione con 0 esclude i campi non desiderati, in questo caso _id, per migliorare leggibilità.
+
+-----------------------------------
+
+
+4) Riportare nome e cognome dei contatti senza profili social.
+
+	db.Rubrica.find(
+ 	 { "Altri_contatti.Profilo_social": { $exists: false } },  // Verifica che il campo non esista
+  	 { Nome: 1, Cognome: 1, _id: 0 }  // Proietta solo "Nome" e "Cognome", escludendo "_id"
+	)
+
+
+Cosa fa questa query:
+    • "$exists: false": Controlla che il campo Profilo_social non esista all'interno di Altri_contatti.
+    • { Nome: 1, Cognome: 1, _id: 0 }: Proietta i campi Nome e Cognome, escludendo l’ID del documento.
+Motivazione: Questo serve per identificare i contatti privi di informazioni sui social network e visualizzare solo nome e cognome.
+
+-----------------------------------
+
+
+
+
+
+
+
+
+5) Contare quanti contatti sono etichettati come “amici stretti” e quanti no.
+	db.Rubrica.aggregate([
+ 	 	{ $group: { _id: "$Amici_stretti", count: { $sum: 1 } } }
+	 ])
+
+Cosa fa questa query:
+    • "$group": Raggruppa i documenti in base al valore di Amici_stretti (true o false).
+    • count: { $sum: 1 }: Incrementa un contatore per ogni documento.
+Motivazione: L'operazione aggregate() consente di calcolare statistiche complesse. In questo caso, viene utilizzata per contare quanti contatti sono amici stretti (true) e quanti non lo sono (false).
+
+-----------------------------------
+
+
+6) Calcolare il numero medio di chiamate effettuate nell'ultimo mese dai contatti “amici stretti”.
+
+	db.Rubrica.aggregate([
+  	{ $match: { Amici_stretti: true } },  // Filtra solo i contatti con "Amici_stretti: true"
+  	{ $group: { _id: null, media_chiamate_ultimo_mese: { $avg: 		"$Chiamate_ultimo_mese" } } }  // Calcola la media delle chiamate
+	])
+
+Cosa fa questa query:
+    • "$match": Filtra solo i documenti con Amici_stretti: true.
+    • "$avg": Calcola la media delle chiamate effettuate utilizzando il campo Chiamate_ultimo_mese.
+Motivazione: La funzione aggregate() è utilizzata per aggregazioni statistiche. La media consente di calcolare il numero medio di chiamate di un sottoinsieme di documenti.
+
+-----------------------------------
+
+
+7) Aggiungi a Simone Azzurri il numero 345678902
+
+1° Step - Converto prima il tipo in array:
+db.Rubrica.updateMany(
+  { $and: [ { Nome: "Simone" }, { Cognome: "Azzurri" }, { Numero_di_cellulare: { $type: "string" } } ] },
+  { $set: { Numero_di_cellulare: [ "$Numero_di_cellulare" ] } }  // Trasforma la stringa in un array con quell'unico valore
+)
+
+Cosa fa questa query:
+    • $type: "string": Controlla se Numero_di_cellulare è una stringa.
+    • $set: Trasforma Numero_di_cellulare in un array contenente l'unico valore presente.
+
+
+2° Step - Procedo con update per aggiungere il numero:
+db.Rubrica.updateMany(
+  { $and: [ { Nome: "Simone" }, { Cognome: "Azzurri" } ] },
+  { $push: { "Numero_di_cellulare": "345678902" } }
+)
+
+Cosa fa questa query:
+    • $push: Aggiunge un nuovo elemento "345678902" all'array Numero_di_cellulare.
+Motivazione: Il primo updateMany serve per convertire Numero_di_cellulare in un array, mentre il secondo updateMany inserisce un nuovo numero nell’array.
+
+-----------------------------------
+
+
+
+
+8) Aggiungi un nuovo documento contenente il contatto di MAry Salgado con numero 346679933 e indirizzo Via 25 Aprile 3, Firenze
+
+db.Rubrica.insertOne({
+    Nome: "Mary Salgado",
+    Numero_di_cellulare: "346679933",
+    Altri_contatti: {
+        Indirizzo: "Via 25 Aprile 3, Firenze"
+    }
+})
+
+Cosa fa questa query:
+    • insertOne: Inserisce un nuovo documento nella collection Rubrica.
+    • I campi Nome, Numero_di_cellulare e Altri_contatti.Indirizzo vengono inseriti con i valori specificati.
+
